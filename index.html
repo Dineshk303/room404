@@ -6,75 +6,84 @@
   <title>Room 404 Terminal</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      color: #00ffcc;
-      font-family: monospace;
-      font-size: 18px;
+      background-color: black;
+      color: #39ff14;
+      font-family: "Courier New", monospace;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+      margin: 0;
     }
-    .terminal {
-      background-color: #000000;
-      border: 2px dashed #ff0088;
-      padding: 40px;
+    #terminal {
+      border: 2px dotted #39ff14;
+      padding: 2em;
       max-width: 600px;
       width: 90%;
-      box-shadow: 0 0 20px #ff0088;
+      box-shadow: 0 0 20px #39ff14;
     }
-    .prompt {
-      margin-top: 1em;
-      display: flex;
-      flex-direction: column;
-    }
-    .input-line {
-      display: flex;
-    }
-    .input-line span {
-      color: #00ffff;
-    }
-    .input-line input {
-      background: none;
+    input {
+      background: black;
       border: none;
-      color: #00ffcc;
-      font-family: monospace;
-      font-size: 18px;
-      outline: none;
+      border-bottom: 1px solid #39ff14;
+      color: #39ff14;
       width: 100%;
+      font-size: 1.1em;
     }
-    #response {
-      margin-top: 20px;
-      color: #ff0088;
+    .glitch {
+      color: #39ff14;
+      animation: glitch 1s infinite;
+      font-weight: bold;
+    }
+    @keyframes glitch {
+      0%   { text-shadow: 2px 0 red; }
+      25%  { text-shadow: -2px 0 cyan; }
+      50%  { text-shadow: 2px 0 lime; }
+      75%  { text-shadow: -2px 0 magenta; }
+      100% { text-shadow: 2px 0 red; }
+    }
+    img {
+      display: block;
+      margin: 0 auto 1em;
     }
   </style>
 </head>
 <body>
-  <div class="terminal">
-    <div>Room 404 :: Secure Terminal</div>
-    <div class="prompt">
-      <div class="input-line">
-        <span>&gt; Enter passphrase:</span>&nbsp;<input type="text" id="input" autocomplete="off" autofocus>
-      </div>
-    </div>
-    <div id="response"></div>
+  <div id="terminal">
+    <p>Welcome to the Room 404 Terminal</p>
+    <p>Enter passphrase:</p>
+    <input type="text" id="passInput" autofocus />
   </div>
 
   <script>
-    const input = document.getElementById('input');
-    const response = document.getElementById('response');
+    const input = document.getElementById("passInput");
+    const terminal = document.getElementById("terminal");
+    const correctPass = "doughnut";
 
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        const val = input.value.toLowerCase();
-        if (val === 'doughnut') {
-          response.innerHTML = "Access granted. Welcome, Bannerman.";
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        if (input.value.trim().toLowerCase() === correctPass) {
+          terminal.innerHTML = `
+            <img src="FBI Logo.png" alt="FBI Donut" style="width: 150px;" />
+            <p><strong>Passphrase accepted.</strong><br>Welcome, Agent Glazed.</p>
+            <p class="glitch">"Final Blow of Insanity" protocol engaged.</p>
+            <audio autoplay controls style="margin-top:1em;width:100%;">
+              <source src="roger-charlie-we-re-ready-to-rock-military-radio-voice-vadi-sound-1-00-02.mp3" type="audio/mpeg">
+              Audio load failed. Sanity restored.
+            </audio>
+            <pre>
+>>> WARNING: Reality distortion field detected.
+>>> Upload complete: 🍩 Protocol Initialized.
+>>> Final Directive: <span class="glitch">FINAL BLOW OF INSANITY</span>
+            </pre>
+          `;
+          document.body.style.backgroundColor = "black";
+          document.body.style.color = "#39ff14";
         } else {
-          response.innerHTML = "Access denied. Try again.";
+          terminal.innerHTML += `<p>Access denied. Watch your step.</p>`;
         }
-        input.value = '';
       }
     });
   </script>
+</body>
+</html>
