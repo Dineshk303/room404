@@ -2,72 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Room 404 Terminal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      padding: 0;
       background: black;
-      color: #33ff33;
-      font-family: 'Share Tech Mono', monospace;
-      padding: 2rem;
+      color: #00ffcc;
+      font-family: monospace;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
     .terminal {
-      max-width: 800px;
-      margin: auto;
-      background: #000000;
-      padding: 2rem;
-      border: 1px dashed #33ff33;
-      box-shadow: 0 0 10px #33ff33;
-      min-height: 300px;
+      background-color: #000000;
+      border: 2px dashed #ff0088;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 0 20px #ff0088;
     }
-    .line {
-      margin: 0.5rem 0;
+    .prompt {
+      margin-top: 1em;
+      display: flex;
+      flex-direction: column;
     }
-    .prompt::before {
-      content: '> ';
+    .input-line {
+      display: flex;
     }
-    input {
-      background: transparent;
-      color: #33ff33;
+    .input-line span {
+      color: #00ffff;
+    }
+    .input-line input {
+      background: none;
       border: none;
-      border-bottom: 1px solid #33ff33;
-      font-family: inherit;
-      font-size: 1rem;
-      width: 100%;
+      color: #00ffcc;
+      font-family: monospace;
+      font-size: 18px;
       outline: none;
+      width: 100%;
     }
-    .hidden {
-      display: none;
+    #response {
+      margin-top: 20px;
+      color: #ff0088;
     }
   </style>
 </head>
 <body>
   <div class="terminal">
-    <div class="line">Welcome to the Room 404 Terminal</div>
-    <div class="line">Enter passphrase:</div>
-    <div class="line prompt">
-      <input type="text" id="input" autocomplete="off" />
+    <div>Room 404 :: Secure Terminal</div>
+    <div class="prompt">
+      <div class="input-line">
+        <span>&gt; Enter passphrase:</span>&nbsp;<input type="text" id="input" autocomplete="off" autofocus>
+      </div>
     </div>
-    <div id="response" class="line hidden"></div>
+    <div id="response"></div>
   </div>
+
   <script>
     const input = document.getElementById('input');
     const response = document.getElementById('response');
 
-    input.addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        const value = input.value.trim().toLowerCase();
-        if (value === 'echo419') {
-          response.textContent = 'Access granted. You are not alone.';
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const val = input.value.toLowerCase();
+        if (val === 'doughnut') {
+          response.innerHTML = "Access granted. Welcome, Bannerman.";
         } else {
-          response.textContent = 'Access denied. Watch your step.';
+          response.innerHTML = "Access denied. Try again.";
         }
-        response.classList.remove('hidden');
-        input.disabled = true;
+        input.value = '';
       }
     });
   </script>
-</body>
-</html>
